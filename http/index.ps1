@@ -17,7 +17,7 @@ else
 $body = @"
 <div>
 <h1>NUnit Server</h1>
-<p class="subtitle">$((Get-Item $HomeDirectory\$currentSession).FullName)</p>
+<p class="subtitle">$((Get-Item $HomeDirectory).FullName)\$currentSession.ps1</p>
 <p>Current session #15: <a href="/$currentSession.ps1">107 tests</a> = 101 passed + 3 ignored + 3 failed</p>
 <p>
 $status
