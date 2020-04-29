@@ -23,9 +23,15 @@ ElseIf ((Test-Path "$logfile.old") -and ($method -eq 'GET'))
 }
 elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 {
-    Start-TestSession $currentSession $HomeDirectory $inputfiles -FailedOnly $failedOnly
+    If ($failedOnly)
+    {
+        Start-TestSession $currentSession $HomeDirectory $inputfiles -FailedOnly $failedOnly -RetryFailed
+    }
+    else
+    {
+        Start-TestSession $currentSession $HomeDirectory $inputfiles -RetryFailed
+    }
     $Context.Response.Redirect("./$currentSession.ps1")
-    $Context.Response.Close()
 }
 elseif (-not (Test-Path $logfile) -and ($method -eq 'GET'))
 {
