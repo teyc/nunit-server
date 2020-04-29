@@ -1,4 +1,4 @@
-TestResult.xml
+*.xml
 *.log
 *.log.old
 *.txt

@@ -14,11 +14,27 @@ else
 "@
 }
 
+$results = Get-TestSessionResult $HomeDirectory $currentSession | Group-Object -Property Result -NoElement
+$results | % { $TotalCount = 0 } { $TotalCount += $_.Count }
+
 $body = @"
 <div>
 <h1>NUnit Server</h1>
 <p class="subtitle">$((Get-Item $HomeDirectory).FullName)\$currentSession.ps1</p>
-<p>Current session #15: <a href="/$currentSession.ps1">107 tests</a> = 101 passed + 3 ignored + 3 failed</p>
+<p>Current session #15:
+    <!--
+    Inconclusive
+    Skipped
+    Passed
+    Failed
+    -->
+    <a href="/$currentSession.ps1">$TotalCount</a> Test Cases =
+    $(($results | % {
+        "
+        <a href=`"/$currentSession.ps1`">$($_.Count)</a> $($_.Name)
+        "
+    } )  -join "+" )
+</p>
 <p>
 $status
 </p>

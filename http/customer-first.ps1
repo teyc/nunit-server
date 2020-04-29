@@ -17,7 +17,7 @@ elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 
     Start-Job -ScriptBlock {
         Param ($runner, $testlist, $logfile, $result)
-        & "$runner" "$testList"  >> $logfile
+        & "$runner" "$testList" "--result=$result"  >> $logfile
 
         Start-Sleep -Seconds 5
 
