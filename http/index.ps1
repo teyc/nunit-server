@@ -6,7 +6,7 @@ $inputfiles = @("C:\dev\toyapps\DelmeTest\DelmeTest2\bin\Debug\DelmeTest2.dll")
 
 #------------------------------------------------------------
 
-if ("IsRunning" -eq (Get-TestSession $currentSession $HomeDirectory))
+if ("IsRunning" -eq (Get-TestSession $currentSession $HOMEDIRECTORY))
 {
     $status = "Status: <a href=`"$currentSession.ps1`">Running</a>"
 }
@@ -18,20 +18,20 @@ else
 "@
 }
 
-$results = Get-TestSessionResult $currentSession $HomeDirectory | Group-Object -Property Result -NoElement
+$results = Get-TestSessionResult $currentSession $HOMEDIRECTORY | Group-Object -Property Result -NoElement
 If ($results.Count -ne 0)
 {
-    $results | % { $TotalCount = 0 } { $TotalCount += $_.Count }
+    $results | ForEach-Object { $TotalCount = 0 } { $TotalCount += $_.Count }
 }
 else
 {
-    $TotalCount = ( (Get-TestCases $currentSession $HomeDirectory $inputfiles) | measure ).Count
+    $TotalCount = ( (Get-TestCases $currentSession $HOMEDIRECTORY $inputfiles) | Measure-Object ).Count
 }
 
 $body = @"
 <div>
 <h1>NUnit Server</h1>
-<p class="subtitle">$((Get-Item $HomeDirectory).FullName)\$currentSession.ps1</p>
+<p class="subtitle">$((Get-Item $HOMEDIRECTORY).FullName)\$currentSession.ps1</p>
 <p>Current session #15:
     <!--
     Inconclusive
