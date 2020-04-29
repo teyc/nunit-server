@@ -10,7 +10,7 @@ If ((Test-Path $logfile) -and ($method -eq 'GET'))
 {
     "<pre>"
     Get-Content $logfile -raw
-    "</pre><script>window.scrollTo(0,document.body.scrollHeight);</script>"
+    "</pre><meta http-equiv=`"refresh`" content=`"10`"><script>window.scrollTo(0,document.body.scrollHeight);</script>"
 }
 elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 {
