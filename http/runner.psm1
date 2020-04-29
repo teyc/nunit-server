@@ -18,7 +18,10 @@ function Get-TestSessionLogPath($sessionName)
 function Get-TestSessionResult($homedirectory, $sessionName)
 {
     $file = "$HomeDirectory\$sessionName.xml"
+    If (Test-Path $file)
+    {
     $xml = [xml] (Get-Content $file)
+
     $xml.SelectNodes("//test-case") |
         ForEach-Object {
             [pscustomobject] @{
@@ -28,4 +31,10 @@ function Get-TestSessionResult($homedirectory, $sessionName)
                 EndTime = $_."end-time"
             }
         }
+}
+    else
+    {
+        return @()
+    }
+
 }
