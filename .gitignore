@@ -1,3 +1,4 @@
 TestResult.xml
 *.log
 *.log.old
+*.txt
