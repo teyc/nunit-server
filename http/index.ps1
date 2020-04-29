@@ -6,7 +6,7 @@ $inputfiles = @("C:\dev\toyapps\DelmeTest\DelmeTest2\bin\Debug\DelmeTest2.dll")
 
 #------------------------------------------------------------
 
-if ("IsRunning" -eq (Get-TestSession $currentSession))
+if ("IsRunning" -eq (Get-TestSession $currentSession $HomeDirectory))
 {
     $status = "Status: <a href=`"$currentSession.ps1`">Running</a>"
 }

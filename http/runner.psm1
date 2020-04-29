@@ -69,20 +69,16 @@ function Get-TestCases($sessionName, $HomeDirectory, $inputfiles)
     Get-Content $explore
 }
 
-function Get-TestSession($sessionName)
-{
-    if (Test-Path (Get-TestSessionLogPath $sessionName))
-    {
+function Get-TestSession($sessionName, $HOMEDIRECTORY) {
+    if (Test-Path (Get-TestSessionLogPath $sessionName $HOMEDIRECTORY)) {
         Return "IsRunning"
     }
-    else
-    {
+    else {
         Return "IsStopped"
     }
 }
 
-function Get-TestSessionLogPath($sessionName)
-{
+function Get-TestSessionLogPath($sessionName, $HomeDirectory) {
     "$HomeDirectory\$sessionName.log"
 }
 
