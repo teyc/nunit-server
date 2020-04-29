@@ -20,7 +20,7 @@ elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 }
 elseif (-not (Test-Path $logfile) -and ($method -eq 'GET'))
 {
-    "Not found $logfile"
+    "Not found $logfile<br /> <a href=/>Home</a>"
 }
 else # ((Test-Path $logfile) -and ($method -eq 'POST'))
 {
