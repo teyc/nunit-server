@@ -25,8 +25,10 @@ elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
     } -ArgumentList $runner,$testList,$logfile,$result
 
     & "$runner" "$testList" "--explore" > $explore
-    Start-Timer Start-Sleep 5
+    Start-Sleep 5
+    # "<script>window.location = '$currentSession.ps1'</script>"
     $Context.Response.Redirect("./$currentSession.ps1")
+    $Context.Response.Close()
 }
 else
 {
