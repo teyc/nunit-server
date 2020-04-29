@@ -47,7 +47,6 @@ function Get-TestCases($sessionName, $HomeDirectory, $TestList)
                 if (-not [bool] $_ ) { $count++ }
                 Return ($count -gt 2 -and [bool] $_)
             } > $explore
-        }
     }
 
     Get-Content $explore
