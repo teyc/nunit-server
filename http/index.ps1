@@ -2,7 +2,7 @@ import-module "$PSScriptRoot\runner.psm1"
 
 # TODO Refactor
 $currentSession = "customer-first"
-$inputfiles = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\toyapps\DelmeTest\DelmeTest2\bin\Debug\DelmeTest2.dll"
+$inputfiles = @("C:\dev\toyapps\DelmeTest\DelmeTest2\bin\Debug\DelmeTest2.dll")
 
 #------------------------------------------------------------
 
