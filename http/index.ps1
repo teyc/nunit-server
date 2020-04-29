@@ -1,6 +1,10 @@
 import-module "$PSScriptRoot\runner.psm1"
 
+# TODO Refactor
 $currentSession = "customer-first"
+$testList = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\oss\nunit\bin\Release\net46\slow-nunit-tests.dll"
+
+#------------------------------------------------------------
 
 if ("IsRunning" -eq (Get-TestSession $currentSession))
 {
@@ -14,8 +18,15 @@ else
 "@
 }
 
-$results = Get-TestSessionResult $HomeDirectory $currentSession | Group-Object -Property Result -NoElement
-$results | % { $TotalCount = 0 } { $TotalCount += $_.Count }
+$results = Get-TestSessionResult $currentSession $HomeDirectory | Group-Object -Property Result -NoElement
+If ($results.Count -ne 0)
+{
+    $results | % { $TotalCount = 0 } { $TotalCount += $_.Count }
+}
+else
+{
+    $TotalCount = ( (Get-TestCases $currentSession $HomeDirectory $TestList) | measure ).Count
+}
 
 $body = @"
 <div>

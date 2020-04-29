@@ -1,7 +1,7 @@
 Import-Module "$PSScriptRoot\runner.psm1"
 
 $currentSession = "customer-first"
-$testList = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll"
+$testList = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\oss\nunit\bin\Release\net46\slow-nunit-tests.dll"
 
 $logfile = "$HOMEDIRECTORY\$currentSession.log"
 $method = $Context.Request.HttpMethod
