@@ -1,10 +1,11 @@
 Import-Module "$PSScriptRoot\runner.psm1"
 
 $currentSession = "customer-first"
-$testList = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\oss\nunit\bin\Release\net46\slow-nunit-tests.dll"
+$inputfiles = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\toyapps\DelmeTest\DelmeTest2\bin\Debug\DelmeTest2.dll"
 
 $logfile = "$HOMEDIRECTORY\$currentSession.log"
 $method = $Context.Request.HttpMethod
+$failedOnly = [bool] $poshPost."failed-only"
 
 If ((Test-Path $logfile) -and ($method -eq 'GET'))
 {
@@ -17,10 +18,12 @@ ElseIf ((Test-Path "$logfile.old") -and ($method -eq 'GET'))
     "<pre>"
     Get-Content "$logfile.old" -raw
     "</pre><meta http-equiv=`"refresh`" content=`"10`"><script>window.scrollTo(0,document.body.scrollHeight);</script>"
+    "<div style='color: red'>Test Completed</div>"
+    "<a href=/>Home</a>"
 }
 elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 {
-    Start-TestSession $currentSession $HomeDirectory $testlist
+    Start-TestSession $currentSession $HomeDirectory $inputfiles -FailedOnly $failedOnly
     $Context.Response.Redirect("./$currentSession.ps1")
     $Context.Response.Close()
 }

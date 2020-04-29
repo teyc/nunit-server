@@ -2,7 +2,7 @@ import-module "$PSScriptRoot\runner.psm1"
 
 # TODO Refactor
 $currentSession = "customer-first"
-$testList = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\oss\nunit\bin\Release\net46\slow-nunit-tests.dll"
+$inputfiles = "C:\dev\oss\nunit\bin\Release\net46\nunit.framework.tests.dll","C:\dev\toyapps\DelmeTest\DelmeTest2\bin\Debug\DelmeTest2.dll"
 
 #------------------------------------------------------------
 
@@ -13,7 +13,7 @@ if ("IsRunning" -eq (Get-TestSession $currentSession))
 else
 {
     $status = @"
-        <form class=`"inline`" action=`"./$currentSession.ps1`"><input type=`"submit`" name=`"failed-only`" value=`"Re-run failed tests`" /></form>
+        <form class=`"inline`" method=`"POST`" action=`"./$currentSession.ps1`"><input type=`"submit`" name=`"failed-only`" value=`"Re-run failed tests`" /></form>
         <form class=`"inline`" method=`"POST`" action=`"./$currentSession.ps1`"><input type=submit value=`"Rerun all tests in current session`"></form>
 "@
 }
@@ -25,7 +25,7 @@ If ($results.Count -ne 0)
 }
 else
 {
-    $TotalCount = ( (Get-TestCases $currentSession $HomeDirectory $TestList) | measure ).Count
+    $TotalCount = ( (Get-TestCases $currentSession $HomeDirectory $inputfiles) | measure ).Count
 }
 
 $body = @"
