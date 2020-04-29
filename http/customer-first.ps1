@@ -6,8 +6,6 @@ $result =  "$HOMEDIRECTORY\$currentSession.xml"
 $logfile = "$HOMEDIRECTORY\$currentSession.log"
 $method = $Context.Request.HttpMethod
 
-# Write-Output "$currentSession $runner $testList $explore $result $logFile"
-
 If ((Test-Path $logfile) -and ($method -eq 'GET'))
 {
     "<pre>"
@@ -26,7 +24,8 @@ elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
         Move-Item $logfile "$logfile.old" -Force
     } -ArgumentList $runner,$testList,$logfile,$result
 
-    #& "$runner" "$testList" "--explore" > $explore
+    & "$runner" "$testList" "--explore" > $explore
+    Start-Timer Start-Sleep 5
     $Context.Response.Redirect("./$currentSession.ps1")
 }
 else
