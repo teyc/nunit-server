@@ -25,11 +25,11 @@ elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 {
     If ($failedOnly)
     {
-        Start-TestSession $currentSession $HomeDirectory $inputfiles -FailedOnly $failedOnly -RetryFailed
+        Start-TestSession $currentSession $HOMEDIRECTORY $inputfiles -FailedOnly $failedOnly -RetryFailed
     }
     else
     {
-        Start-TestSession $currentSession $HomeDirectory $inputfiles -RetryFailed
+        Start-TestSession $currentSession $HOMEDIRECTORY $inputfiles -RetryFailed
     }
     $Context.Response.Redirect("./$currentSession.ps1")
 }
