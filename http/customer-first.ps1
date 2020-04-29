@@ -12,6 +12,12 @@ If ((Test-Path $logfile) -and ($method -eq 'GET'))
     Get-Content $logfile -raw
     "</pre><meta http-equiv=`"refresh`" content=`"10`"><script>window.scrollTo(0,document.body.scrollHeight);</script>"
 }
+ElseIf ((Test-Path "$logfile.old") -and ($method -eq 'GET'))
+{
+    "<pre>"
+    Get-Content "$logfile.old" -raw
+    "</pre><meta http-equiv=`"refresh`" content=`"10`"><script>window.scrollTo(0,document.body.scrollHeight);</script>"
+}
 elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
 {
     Start-TestSession $currentSession $HomeDirectory $testlist
