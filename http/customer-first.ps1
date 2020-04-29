@@ -17,7 +17,7 @@ ElseIf ((Test-Path "$logfile.old") -and ($method -eq 'GET'))
 {
     "<pre>"
     Get-Content "$logfile.old" -raw
-    "</pre><meta http-equiv=`"refresh`" content=`"10`"><script>window.scrollTo(0,document.body.scrollHeight);</script>"
+    "</pre><script>window.scrollTo(0,document.body.scrollHeight);</script>"
     "<div style='color: red'>Test Completed</div>"
     "<a href=/>Home</a>"
 }
