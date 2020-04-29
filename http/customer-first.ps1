@@ -20,11 +20,14 @@ elseif (-not (Test-Path $logfile) -and ($method -eq 'POST'))
     Start-Job -ScriptBlock {
         Param ($runner, $testlist, $logfile, $result)
         & "$runner" "$testList"  >> $logfile
-        Move-Item $logfile $logfile.".old" -Force
+
+        Start-Sleep -Seconds 5
+
+        Move-Item $logfile "$logfile.old" -Force
     } -ArgumentList $runner,$testList,$logfile,$result
 
     #& "$runner" "$testList" "--explore" > $explore
-    $Context.Response.Redirect("./Customer-First.ps1")
+    $Context.Response.Redirect("./$currentSession.ps1")
 }
 else
 {
